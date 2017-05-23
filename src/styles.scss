@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+
+.preloader-wrapper {
+    position: absolute;
+    margin-left: -32px;
+    margin-top: -32px;
+    left: 50%;
+    top: 50%;
+}
+
+.brand-logo {
+    background-image: url('/assets/images/navbar-brand.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: 40px 0px;
+}
+
+.btn {
+    background-color: #E65100;
+}

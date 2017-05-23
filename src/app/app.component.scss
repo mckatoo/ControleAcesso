@@ -1,0 +1,31 @@
+header,
+main,
+footer {
+    padding-left: 300px;
+}
+
+.navbar-fixed {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.first-row {
+    padding-top: 64px;
+}
+
+.side-nav.fixed {
+    width: 250px;
+}
+
+main {
+    padding-left: 250px;
+}
+
+@media only screen and (max-width: 992px) {
+    header,
+    main,
+    footer {
+        padding-left: 0;
+    }
+}
