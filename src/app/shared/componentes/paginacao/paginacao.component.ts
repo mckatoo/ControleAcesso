@@ -29,15 +29,17 @@ export class PaginacaoComponent implements OnInit {
 	qtdPaginas: number;
 
 	constructor(private route: ActivatedRoute) {
+		console.log('constructo paginacao');
 	}
 
 	ngOnInit() {
+		console.log('ngOnInit paginacao');
 		this.qtdAdjacentes = this.qtdAdjacentes || PaginacaoComponent.ADJACENTES_PADRAO;
 		this.qtdPorPagina = this.qtdPorPagina || PaginacaoComponent.TOTAL_PAGS_PADRAO;
 		this.pagina = +this.route.snapshot.queryParams['pagina'] || PaginacaoComponent.PAG_PADRAO;
 		this.totalRegistros = this.totalRegistros || PaginacaoComponent.REG_PADRAO;
 		this.qtdPaginas = Math.ceil(this.totalRegistros / this.qtdPorPagina);
-		console.log('totalRegistros: '+this.totalRegistros);
+		console.log('totalRegistros ngOnInit: '+this.totalRegistros);
 		this.gerarLinks();
 	}
 

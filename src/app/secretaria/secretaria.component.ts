@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { NgForm } from '@angular/forms';
 import { AppComponent } from './../app.component';
 import { Component, OnInit } from '@angular/core';
@@ -22,9 +23,11 @@ export class SecretariaComponent implements OnInit {
   alunosTotal:FirebaseListObservable<any>;
 
   constructor(private db: AngularFireDatabase, private title: Title) {
+    console.log('constructor secretaria');
     this.db.object('/alunos').subscribe(
       dados => {
         this.count = dados.length;
+        console.log(this.count);
       }
     );
     this.getAlunos();
@@ -42,7 +45,6 @@ export class SecretariaComponent implements OnInit {
         orderByChild: 'nome'
       }
     });
-    
 
     for (let i = ( this.pagina * this.qtdPorPagina ); i < (this.pagina * this.qtdPorPagina + this.qtdPorPagina); i++) {
       if (i >= this.count) {
@@ -116,6 +118,7 @@ export class SecretariaComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('ngOnInit secretaria');
     this.title.setTitle('IESI - Secretaria');
   }
 
