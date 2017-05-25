@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Observable';
 import { NgForm } from '@angular/forms';
 import { AppComponent } from './../app.component';
 import { Component, OnInit } from '@angular/core';
@@ -18,18 +17,14 @@ export class SecretariaComponent implements OnInit {
   display = 'hidden';
   count: number;
   pagina: number = 0;
-	qtdPorPagina: number = 5;
+	porPagina: number;
   alunos = [];
   alunosTotal:FirebaseListObservable<any>;
 
   constructor(private db: AngularFireDatabase, private title: Title) {
-    console.log('constructor secretaria');
-    this.db.object('/alunos').subscribe(
-      dados => {
-        this.count = dados.length;
-        console.log(this.count);
-      }
-    );
+    if (this.porPagina == undefined) {
+      this.porPagina = 5;
+    }
     this.getAlunos();
   }
 
@@ -39,6 +34,11 @@ export class SecretariaComponent implements OnInit {
 	}
 
   getAlunos(){
+    this.db.object('/alunos').subscribe(
+      dados => {
+        this.count = dados.length;
+      }
+    );
     this.alunos = [];
     this.alunosTotal = this.db.list('/alunos',{
       query: {
@@ -46,7 +46,7 @@ export class SecretariaComponent implements OnInit {
       }
     });
 
-    for (let i = ( this.pagina * this.qtdPorPagina ); i < (this.pagina * this.qtdPorPagina + this.qtdPorPagina); i++) {
+    for (let i = ( this.pagina * this.porPagina ); i < (this.pagina * this.porPagina + this.porPagina); i++) {
       if (i >= this.count) {
         break;
       }
@@ -102,9 +102,6 @@ export class SecretariaComponent implements OnInit {
   }
 
   update(key:string) {
-    // console.log(key);
-    // console.log(json.value);
-    // console.log(this.editAluno);
     this.alunosTotal.update(key,this.editAluno);
     this.display = 'hidden';
   }
@@ -118,7 +115,6 @@ export class SecretariaComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit secretaria');
     this.title.setTitle('IESI - Secretaria');
   }
 

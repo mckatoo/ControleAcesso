@@ -1,3 +1,31 @@
-<p>
-  controle-acesso works!
-</p>
+<br><br>
+<div class="card-panel">
+    <div class="search">
+        <div class="search-wrapper card">
+            <input id="search"><i class="material-icons">search</i>
+            <div class="search-results"></div>
+        </div>
+    </div>
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Matrícula</th>
+                <th>Nome</th>
+                <th>Liberações Restantes</th>
+                <th>Liberar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let a of alunos">
+                <td>{{ a.matricula }}</td>
+                <td>{{ a.nome }}</td>
+                <td class="center">{{ 3 - a.entradas }}</td>
+                <td>
+                    <a class="btn-floating btn waves-effect waves-light green"><i class="material-icons">add</i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<paginacao [qtdPorPagina]="porPagina" [totalRegistros]="count" [qtdAdjacentes]="3" (onPaginate)="paginar($event)">
+</paginacao>

@@ -1,7 +1,8 @@
 import { 
 	Component, 
 	Input, 
-	OnInit, 
+	OnInit,
+	OnChanges,
 	Output, 
 	EventEmitter 
 } from '@angular/core';
@@ -12,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 	templateUrl: 'paginacao.component.html',
 	styleUrls: ['paginacao.component.scss']
 })
-export class PaginacaoComponent implements OnInit {
+export class PaginacaoComponent implements OnInit, OnChanges {
 	public static readonly TOTAL_PAGS_PADRAO: number = 20;
 	public static readonly PAG_PADRAO: number = 1;
 	public static readonly REG_PADRAO: number = 0;
@@ -29,18 +30,18 @@ export class PaginacaoComponent implements OnInit {
 	qtdPaginas: number;
 
 	constructor(private route: ActivatedRoute) {
-		console.log('constructo paginacao');
 	}
 
 	ngOnInit() {
-		console.log('ngOnInit paginacao');
+	}
+
+	ngOnChanges() {
 		this.qtdAdjacentes = this.qtdAdjacentes || PaginacaoComponent.ADJACENTES_PADRAO;
 		this.qtdPorPagina = this.qtdPorPagina || PaginacaoComponent.TOTAL_PAGS_PADRAO;
 		this.pagina = +this.route.snapshot.queryParams['pagina'] || PaginacaoComponent.PAG_PADRAO;
 		this.totalRegistros = this.totalRegistros || PaginacaoComponent.REG_PADRAO;
 		this.qtdPaginas = Math.ceil(this.totalRegistros / this.qtdPorPagina);
-		console.log('totalRegistros ngOnInit: '+this.totalRegistros);
-		this.gerarLinks();
+		this.gerarLinks();		
 	}
 
 	/**
