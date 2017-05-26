@@ -19,10 +19,10 @@ export class ControleAcessoComponent implements OnInit {
   alunos;
   alunosTotal:FirebaseListObservable<any>;
   _query: object = {
-      query: {
-        orderByChild: 'nome',
-      }
-    };
+    query: {
+      orderByChild: 'nome',
+    }
+  };
 
   constructor(private db: AngularFireDatabase, private title: Title) {
     if (this.porPagina == undefined) {
@@ -41,44 +41,48 @@ export class ControleAcessoComponent implements OnInit {
 	}
 
   search(_search:string) {
-    this._query = {
-      query: {
-        orderByChild: 'matricula',
-        equalTo: _search
-      }
-    };
     this.alunos = [];
-    this.alunosTotal = this.db.list('/alunos',this._query);
-    this.count = Object.getOwnPropertyNames('alunosTotal').length;
+    if (_search == '') {
+      this._query = {
+        query: {
+          orderByChild: 'nome',
+        }
+      };
+    } else {
+      this._query = {
+        query: {
+          orderByChild: 'matricula',
+          equalTo: _search,
+        }
+      };
+    }
+    this.getAlunos();
+  }
+
+  alunosArray() {
     for (let i = ( this.pagina * this.porPagina ); i < (this.pagina * this.porPagina + this.porPagina); i++) {
       if (i >= this.count) {
         break;
       }
       this.alunosTotal.subscribe(
-        dados => this.alunos.push(dados[i])
+        dados => {
+          if (dados[i] != undefined) {
+            this.alunos.push(dados[i]);
+          }
+        }
       );
     }
-    console.log(this.count);
-    console.log(this.alunosTotal);
   }
 
   getAlunos(){
-    this.db.object('/alunos').subscribe(
+    this.alunos = [];
+    this.alunosTotal = this.db.list('/alunos',this._query);
+    this.alunosTotal.subscribe(
       dados => {
         this.count = dados.length;
       }
     );
-    this.alunos = [];
-    this.alunosTotal = this.db.list('/alunos',this._query);
-
-    for (let i = ( this.pagina * this.porPagina ); i < (this.pagina * this.porPagina + this.porPagina); i++) {
-      if (i >= this.count) {
-        break;
-      }
-      this.alunosTotal.subscribe(
-        dados => this.alunos.push(dados[i])
-      );
-    }
+    this.alunosArray();
   }
 
 }
