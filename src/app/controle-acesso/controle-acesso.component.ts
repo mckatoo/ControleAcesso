@@ -34,7 +34,11 @@ export class ControleAcessoComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('IESI - Controle de Acesso');
-    this.db.list('/alunos').subscribe(
+    this.db.list('/alunos',{
+      query: {
+      orderByChild: 'nome',
+      }
+    }).subscribe(
       dados => this.alunosTotal = this.alunos = dados
     );
   }
@@ -64,7 +68,34 @@ export class ControleAcessoComponent implements OnInit {
   // }
 
   search(_search:string) {
-    this.alunos = this.alunosTotal.filter(matricula => matricula.description.includes(_search));
+    let _query = this._query;
+    if (_search != '') {
+      _query = {
+        query: {
+          orderByChild: 'matricula',
+          equalTo: _search
+        }
+      }
+    }
+    this.db.list('/alunos',_query).subscribe(
+      dados => {
+        this.alunos = dados;
+        this.count = dados.length;
+      }
+    );
+    if (this.count == 0) {
+      this.db.list('/alunos', {
+        query: {
+          orderByChild: 'matricula',
+          equalTo: '3101000'+_search
+        }
+      }).subscribe(
+        dados => {
+          this.alunos = dados;
+          this.count = dados.length;
+        }
+      );
+    }
   }
 
   alunosArray() {
