@@ -17,7 +17,8 @@ export class ControleAcessoComponent implements OnInit {
   pagina: number = 0;
 	porPagina: number;
   alunos;
-  alunosTotal:FirebaseListObservable<any>;
+  // alunosTotal:FirebaseListObservable<any>;
+  alunosTotal;
   _query: object = {
     query: {
       orderByChild: 'nome',
@@ -28,11 +29,14 @@ export class ControleAcessoComponent implements OnInit {
     if (this.porPagina == undefined) {
       this.porPagina = 5;
     }
-    this.getAlunos();
+    // this.getAlunos();
   }
 
   ngOnInit() {
     this.title.setTitle('IESI - Controle de Acesso');
+    this.db.list('/alunos').subscribe(
+      dados => this.alunosTotal = this.alunos = dados
+    );
   }
 
   paginar($event: any) {
@@ -40,23 +44,27 @@ export class ControleAcessoComponent implements OnInit {
 		this.getAlunos();
 	}
 
+  // search(_search:string) {
+  //   this.alunos = [];
+  //   if (_search == '') {
+  //     this._query = {
+  //       query: {
+  //         orderByChild: 'nome',
+  //       }
+  //     };
+  //   } else {
+  //     this._query = {
+  //       query: {
+  //         orderByChild: 'matricula',
+  //         equalTo: _search,
+  //       }
+  //     };
+  //   }
+  //   this.getAlunos();
+  // }
+
   search(_search:string) {
-    this.alunos = [];
-    if (_search == '') {
-      this._query = {
-        query: {
-          orderByChild: 'nome',
-        }
-      };
-    } else {
-      this._query = {
-        query: {
-          orderByChild: 'matricula',
-          equalTo: _search,
-        }
-      };
-    }
-    this.getAlunos();
+    this.alunos = this.alunosTotal.filter(matricula => matricula.description.includes(_search));
   }
 
   alunosArray() {
