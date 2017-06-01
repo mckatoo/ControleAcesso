@@ -31,114 +31,85 @@ export class ControleAcessoComponent implements OnInit {
       this.porPagina = 5;
     }
     // this.getAlunos();
+    // const rootRef = firebase.database().ref();
+    // this.alunosTotal = rootRef.child('alunos').orderByChild('nome').startAt('ADAUTO').endAt('ADAUTO'+'\uf8ff');
+    // this.alunosTotal.on('value', snap => console.log(snap.val()));
     this.db.list('/alunos',{
-        query: {
-          orderByChild: 'nome',
-          startAt: 'adauto',
-          endAt: 'adauto\uf8ff'
+      query: {
+        orderByChild: 'nome',
+        startAt: 'ADAUTO',
+        endAt: 'ADAUTO\uf8ff'
+      }
+    }).subscribe(dados => {
+      this.alunos = [];
+      for (let i in this.alunosTotal) {
+        if (this.alunosTotal.hasOwnProperty(i)) {
+          this.alunos.push(this.alunosTotal[i]);
         }
-      }).subscribe(dados => {
-        this.count = dados.length;
-        this.alunos = [];
-        for (var i in dados) {
-          if (dados.hasOwnProperty(i)) {
-            this.alunos.push(dados[i]);
-          }
-        }
-        console.log(dados);
-      });
+      }
+
+    });
+    console.log(this.alunosTotal);
   }
 
   ngOnInit() {
     this.title.setTitle('IESI - Controle de Acesso');
   }
 
-  paginar($event: any) {
-		this.pagina = $event - 1;
-		this.getAlunos();
-	}
+  // paginar($event: any) {
+	// 	this.pagina = $event - 1;
+	// 	this.getAlunos();
+	// }
 
-  search(_search:string) {
-    // function isNumber(n) {
-    //   return !isNaN(parseFloat(n)) && isFinite(n);
-    // }
-    // this.alunos = [];
-    // if (_search == '') {
-    //   this._query = {
-    //     query: {
-    //       orderByChild: 'nome',
-    //     }
-    //   };
-    //   this.getAlunos();
-    // } else if (isNumber(_search)) {
-    //   this._query = {
-    //     query: {
-    //       orderByChild: 'matricula',
-    //       equalTo: _search
-    //     }
-    //   };
-    //   this.getAlunos();
-    //   console.log('é número');
-    // } else {
-    //   this.db.list('/alunos',{
-    //     query: {
-    //       orderByChild: 'nome',
-    //       startAt: _search,
-    //       endAt: _search + "\uf8ff"
-    //     }
-    //   }).subscribe(dados => {
-    //     this.count = dados.length;
-    //     for (var i in dados) {
-    //       if (dados.hasOwnProperty(i)) {
-    //         this.alunos.push(dados[i]);
-    //       }
-    //     }
-    //     console.log(_search + "\uf8ff");
-    //   });
-    //   console.log('não é número');
-    // }
-    this.db.list('/alunos',{
-        query: {
-          orderByChild: 'nome',
-          startAt: _search,
-          endAt: _search + "\uf8ff"
-        }
-      }).subscribe(dados => {
-        this.count = dados.length;
-        this.alunos = [];
-        for (var i in dados) {
-          if (dados.hasOwnProperty(i)) {
-            this.alunos.push(dados[i]);
-          }
-        }
-        console.log(dados);
-      });
-  }
+  // search(_search:string) {
+  //   function isNumber(n) {
+  //     return !isNaN(parseFloat(n)) && isFinite(n);
+  //   }
+  //   this.alunos = [];
+  //   if (_search == '') {
+  //     this._query = {
+  //       query: {
+  //         orderByChild: 'nome',
+  //       }
+  //     };
+  //   } else if (isNumber(_search)) {
+  //     this._query = {
+  //       query: {
+  //         orderByChild: 'matricula',
+  //         equalTo: _search
+  //       }
+  //     };
+  //     console.log('é número');
+  //   } else {
+  //     console.log('não é número');
+  //   }
+  //   this.getAlunos();
+  // }
 
-  alunosArray() {
-    this.alunos = [];
-    for (let i = ( this.pagina * this.porPagina ); i < (this.pagina * this.porPagina + this.porPagina); i++) {
-      if (i >= this.count) {
-        break;
-      }
-      this.alunosTotal.subscribe(
-        dados => {
-          if (dados[i] != undefined) {
-            this.alunos.push(dados[i]);
-          }
-        }
-      );
-    }
-  }
+  // alunosArray() {
+  //   this.alunos = [];
+  //   for (let i = ( this.pagina * this.porPagina ); i < (this.pagina * this.porPagina + this.porPagina); i++) {
+  //     if (i >= this.count) {
+  //       break;
+  //     }
+  //     this.alunosTotal.subscribe(
+  //       dados => {
+  //         if (dados[i] != undefined) {
+  //           this.alunos.push(dados[i]);
+  //         }
+  //       }
+  //     );
+  //   }
+  // }
 
-  getAlunos(){
-    this.alunosTotal = this.db.list('/alunos',this._query);
-    this.alunosTotal.subscribe(
-      dados => {
-        this.count = dados.length;
-      }
-    );
-    this.alunosArray();
-  }
+  // getAlunos(){
+  //   this.alunosTotal = this.db.list('/alunos',this._query);
+  //   this.alunosTotal.subscribe(
+  //     dados => {
+  //       this.count = dados.length;
+  //     }
+  //   );
+  //   this.alunosArray();
+  // }
 
 }
