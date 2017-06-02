@@ -112,4 +112,14 @@ export class ControleAcessoComponent implements OnInit {
     
   }
 
+  liberar(aluno){
+    if (confirm("Liberar acesso para " + aluno.nome + "?\nClique em OK para liberar ou CANCELAR para não liberar.")) {
+      aluno.entradas = aluno.entradas + 1;
+      this.alunosTotal.update(aluno.$key,aluno);
+      console.log('Liberado.');
+    } else {
+      console.log('Não liberado.');
+    }    
+  }
+
 }

@@ -13,7 +13,7 @@ import { Title } from '@angular/platform-browser';
 
 export class SecretariaComponent implements OnInit {
   text: string = '';
-  editAluno: FirebaseListObservable<any>;
+  editAluno: object;
   display = 'hidden';
   count: number;
   pagina: number = 0;
@@ -34,26 +34,22 @@ export class SecretariaComponent implements OnInit {
 	}
 
   getAlunos(){
-    this.db.object('/alunos').subscribe(
-      dados => {
-        this.count = dados.length;
-      }
-    );
     this.alunos = [];
-    this.alunosTotal = this.db.list('/alunos',{
+    this.db.list('/alunos',{
       query: {
         orderByChild: 'nome'
       }
-    });
-
-    for (let i = ( this.pagina * this.porPagina ); i < (this.pagina * this.porPagina + this.porPagina); i++) {
-      if (i >= this.count) {
-        break;
+    }).subscribe(
+      dados => {
+        this.count = dados.length;
+        for (let i = ( this.pagina * this.porPagina ); i < (this.pagina * this.porPagina + this.porPagina); i++) {
+          if (i >= this.count) {
+            break;
+          }
+          this.alunos.push(dados[i]);
+        }
       }
-      this.alunosTotal.subscribe(
-        dados => this.alunos.push(dados[i])
-      );
-    }
+    );
   }
 
   modalOpen() {
@@ -61,6 +57,7 @@ export class SecretariaComponent implements OnInit {
   }
 
   modalClose() {
+    this.editAluno = {};
     this.display = 'hidden';
   }
 
@@ -101,8 +98,8 @@ export class SecretariaComponent implements OnInit {
     this.editAluno = aluno;
   }
 
-  update(key:string) {
-    this.alunosTotal.update(key,this.editAluno);
+  update(aluno) {
+    this.alunosTotal.update(aluno.$key,aluno);
     this.display = 'hidden';
   }
   
