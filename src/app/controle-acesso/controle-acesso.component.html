@@ -9,6 +9,7 @@
     <table class="striped">
         <thead>
             <tr>
+                <th>id</th>
                 <th>Matrícula</th>
                 <th>Nome</th>
                 <th class="center">Liberações Restantes</th>
@@ -17,6 +18,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let a of alunos">
+                <td>{{ a.$key }}</td>
                 <td>{{ a.matricula }}</td>
                 <td>{{ a.nome }}</td>
                 <td class="center">
