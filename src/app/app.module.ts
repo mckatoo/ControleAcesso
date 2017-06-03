@@ -10,6 +10,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { firebaseConfig } from './../environments/firebase.config';
 import { AngularFireModule } from 'angularfire2';
 
+import { LoginModule } from './login/login.module';
 import { ConfiguracoesModule } from './configuracoes/configuracoes.module';
 import { ControleAcessoModule } from './controle-acesso/controle-acesso.module';
 import { HomeModule } from './home/home.module';
@@ -25,6 +26,7 @@ import { SecretariaModule } from './secretaria/secretaria.module';
     BrowserModule,
     FormsModule,
     HttpModule,
+    LoginModule,
     ConfiguracoesModule,
     ControleAcessoModule,
     HomeModule,
