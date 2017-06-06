@@ -10,16 +10,10 @@ import * as firebase from 'firebase/app';
 })
 export class AppComponent {
   usuario: Observable<firebase.User>;
+  login;
 
   constructor(private afAuth: AngularFireAuth) {
     this.usuario = afAuth.authState;
-  }
-
-  login(email:string, passwd:string) {
-    email = 'mckatoo@gmail.com';
-    passwd = 'mckatoo';
-    this.afAuth.auth.signInWithEmailAndPassword(email,passwd);
-    // this._location.reload;
   }
 
   logout() {

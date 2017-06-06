@@ -1,7 +1,9 @@
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
+
 import { FirebaseListObservable, AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Subject } from 'rxjs/Subject';
 import * as firebase from 'firebase';
@@ -22,7 +24,21 @@ export class ControleAcessoComponent implements OnInit {
   alunos = [];
   alunosTotal: FirebaseListObservable<any>;
 
-  constructor(private db: AngularFireDatabase, private title: Title) {
+  constructor(
+    private db: AngularFireDatabase,
+    private afAuth: AngularFireAuth,
+    private title: Title,
+    private router: Router,
+  ) {
+    let usuario = afAuth.authState;
+    usuario.subscribe(usuario => {
+      if (usuario == null) {
+        router.navigate(['login']);
+      } else {
+        router.navigate(['controle']);
+      }
+    });
+
     if (this.porPagina == undefined) {
       this.porPagina = 5;
     }

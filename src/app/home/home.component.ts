@@ -13,24 +13,21 @@ import * as firebase from 'firebase/app';
 })
 export class HomeComponent implements OnInit {
   
-  email: Observable<firebase.User>;
+  usuario: Observable<firebase.User>;
 
   constructor(
     private title: Title,
     private afAuth: AngularFireAuth,
     private router: Router,
   ) {
-    afAuth.authState.subscribe(
-      usuario => {
-        // this.email = usuario.emailVerified.valueOf;
+    this.usuario = afAuth.authState;
+    this.usuario.subscribe(usuario => {
+      if (usuario == null) {
+        router.navigate(['login']);
+      } else {
+        router.navigate(['home']);
       }
-    )
-
-    // if () {
-      
-    // }
-    
-    this.router.navigate(['login']);
+    });
   }
 
   ngOnInit() {

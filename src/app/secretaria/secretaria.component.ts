@@ -1,8 +1,9 @@
+import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AppComponent } from './../app.component';
 import { Component, OnInit } from '@angular/core';
 import { FirebaseListObservable, AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -21,7 +22,21 @@ export class SecretariaComponent implements OnInit {
   alunos = [];
   alunosTotal:FirebaseListObservable<any>;
 
-  constructor(private db: AngularFireDatabase, private title: Title) {
+  constructor(
+    private db: AngularFireDatabase,
+    private afAuth: AngularFireAuth,
+    private title: Title,
+    private router: Router,
+  ) {
+    let usuario = afAuth.authState;
+    usuario.subscribe(usuario => {
+      if (usuario == null) {
+        router.navigate(['login']);
+      } else {
+        router.navigate(['secretaria']);
+      }
+    });
+
     if (this.porPagina == undefined) {
       this.porPagina = 5;
     }

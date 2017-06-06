@@ -1,7 +1,10 @@
 <div class="fundo">
     <div id="login-page" class="row">
         <div class="col s12 z-depth-4 card-panel">
-            <form class="login-form">
+            <div class="alert alert-danger" role="alert" *ngIf="msgErro">
+                {{ msgErro }}
+            </div>
+            <form class="login-form" #f="ngForm" (ngSubmit)="login(f.form._value)">
                 <div class="row">
                     <div class="input-field col s12 center">
                         <img src="/assets/images/login-logo.png" alt="" class="circle responsive-img valign profile-image-login">
@@ -10,15 +13,15 @@
                 </div>
                 <div class="row margin">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix">person_pin</i>
-                        <input id="username" type="text">
-                        <label for="username" class="center-align">Usuário</label>
+                        <i class="material-icons prefix">email</i>
+                        <input id="email" type="email" name="email" [(ngModel)]="email">
+                        <label for="email" class="center-align">E-Mail</label>
                     </div>
                 </div>
                 <div class="row margin">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock_outline</i>
-                        <input id="password" type="password">
+                        <input id="password" type="password" name="password" [(ngModel)]="password">
                         <label for="password">Senha</label>
                     </div>
                 </div>
@@ -31,11 +34,9 @@
                         <p class="margin medium-small"><a href="page-forgot-password.html">Esqueceu a senha?</a></p>
                     </div>
                 </div>
-                <!--<div class="row">
-                </div>-->
                 <div class="row">
                     <div class="input-field col s12">
-                        <a href="index.html" class="btn waves-effect waves-light col s12">Entrar</a>
+                        <input [disabled]="f.invalid" type="submit" class="btn waves-effect waves-light col s12" value="Entrar" />
                     </div>
                 </div>
 
