@@ -1,23 +1,21 @@
-<div class="card-panel">
-    <table class="striped">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>E-Mail</th>
-                <th colspan="2"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let u of users">
-                <td></td>
-                <td></td>
-                <td class="center">
-                    <a class="btn-floating btn waves-effect waves-light red"><i class="material-icons">remove</i></a>
-                </td>
-                <td class="center">
-                    <a class="btn-floating btn waves-effect waves-light green"><i class="material-icons">add</i></a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<table class="striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>E-Mail</th>
+            <th colspan="2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let u of users">
+            <td></td>
+            <td></td>
+            <td class="center">
+                <a class="btn-floating btn waves-effect waves-light red"><i class="material-icons">remove</i></a>
+            </td>
+            <td class="center">
+                <a class="btn-floating btn waves-effect waves-light green"><i class="material-icons">add</i></a>
+            </td>
+        </tr>
+    </tbody>
+</table>

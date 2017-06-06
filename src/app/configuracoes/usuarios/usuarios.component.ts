@@ -1,7 +1,6 @@
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Component, OnInit } from '@angular/core';
-import * as fbAdmin from 'firebase-admin';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'usuarios',
@@ -10,10 +9,16 @@ import * as fbAdmin from 'firebase-admin';
 })
 export class UsuariosComponent implements OnInit {
 
+  users:any;
+
   constructor(
-    private db: AngularFireDatabase,
-    private afAuth: AngularFireAuth
-  ) {}
+    private db: AngularFireDatabase
+  ) {
+    // db.list('/users').subscribe(users => {
+    //   this.users = users;
+    //   console.log(this.users);
+    // });
+  }
 
   ngOnInit() {
     
