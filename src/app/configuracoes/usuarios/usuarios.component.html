@@ -1,21 +1,67 @@
-<table class="striped">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>E-Mail</th>
-            <th colspan="2"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let u of users">
-            <td></td>
-            <td></td>
-            <td class="center">
-                <a class="btn-floating btn waves-effect waves-light red"><i class="material-icons">remove</i></a>
-            </td>
-            <td class="center">
-                <a class="btn-floating btn waves-effect waves-light green"><i class="material-icons">add</i></a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="card-content white-text">
+    <h4>Usuários
+        <a href="#" class="waves-effect waves-light right btn-floating btn-small green">
+            <i class="small material-icons">add</i>
+        </a>
+    </h4>
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-Mail</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let u of users">
+                <td></td>
+                <td></td>
+                <td class="center">
+                    <a class="btn-floating btn waves-effect waves-light red"><i class="material-icons">remove</i></a>
+                </td>
+                <td class="center">
+                    <a class="btn-floating btn waves-effect waves-light blue"><i class="material-icons">mode_edit</i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal Structure -->
+<div class="ng-modal {{ display }}">
+    <div id="modalEditar" class="ng-modal-body">
+        <div class="modal-title white-text orange darken-4" *ngIf="editUser">
+            {{ editUser.nome }}
+        </div>
+        <form #f="ngForm" (ngSubmit)="update(f.form._value)">
+            <div class="modal-body" *ngIf="editAluno">
+                <div class="row">
+                    <div class="input-field col s12 l6">
+                        <i class="material-icons prefix">person</i>
+                        <input placeholder="Nome Completo" type="text" name="nome" id="nome" class="validate" required [value]="editAluno.nome">
+                        <label class="active" data-error="Preenchimento Obrigatório" for="nome">Nome</label>
+                    </div>
+                    <div class="input-field col s12 l6">
+                        <i class="material-icons prefix">code</i>
+                        <input placeholder="E-Mail" type="email" name="email" id="email" class="validate" required [value]="editAluno.email">
+                        <label class="active" data-error="Preenchimento Obrigatório" for="email">Matrícula</label>
+                    </div>
+                    <div class="input-field col s12 l6">
+                        <i class="material-icons prefix">library_books</i>
+                        <input placeholder="Curso" type="text" name="curso" id="curso" class="validate" required [value]="editAluno.curso">
+                        <label class="active" data-error="Preenchimento Obrigatório" for="curso">Curso</label>
+                    </div>
+                    <div class="input-field col s12 l6">
+                        <i class="fa fa-sign-in prefix"></i>
+                        <input placeholder="Entradas Restantes" type="number" min="0" max="3" name="entradas" id="entradas" class="validate" required [value]="editAluno.entradas">
+                        <label class="active" data-error="Preenchimento Obrigatório" for="entradas">Entradas Restantes</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-red btn red darken-4 left" (click)="modalClose()">Cancelar</a>
+                <button type="submit" [disabled]="f.invalid" class="modal-action modal-close waves-effect waves-green btn blue darken-1 right">Atualizar</button>
+            </div>
+        </form>
+    </div>
+</div>
