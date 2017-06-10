@@ -10,25 +10,35 @@ import * as firebase from 'firebase';
 })
 export class UsuariosComponent implements OnInit {
 
-  users: any;
-  display: string;
+  users: FirebaseListObservable<any>;
+  display = 'hidden';
   editUser: object;
+  acao: string;
 
   constructor(
     private db: AngularFireDatabase,
     private afAuth: AngularFireAuth
   ) {
-    db.list('/users').subscribe(users => {
-      this.users = users;
-    });
+    this.users = db.list('/users');
   }
 
   ngOnInit() {
     
   }
 
+  modalOpen(acao:string) {
+    this.acao = acao;
+    this.display = '';
+  }
+
+  modalClose() {
+    this.editUser = {};
+    this.display = 'hidden';
+  }
+
   save(json:string) {
     this.users.push(json);
+    this.display = 'hidden';
   }
   
   editar(usuario){
@@ -36,8 +46,8 @@ export class UsuariosComponent implements OnInit {
     this.editUser = usuario;
   }
 
-  update(aluno) {
-    this.users.update(aluno.$key,aluno);
+  update(usuario) {
+    this.users.update(usuario.$key,usuario);
     this.display = 'hidden';
   }
   
