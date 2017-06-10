@@ -33,7 +33,7 @@
         <div class="modal-title white-text orange darken-4">
             Novo Usuário
         </div>
-        <form #f="ngForm" (ngSubmit)="save(f.form._value)">
+        <form #f="ngForm" (ngSubmit)="save(f.form._value);f.reset()">
             <div class="modal-body">
                 <div class="row">
                     <div class="input-field col s12 l6">
@@ -62,16 +62,18 @@
                         <label class="active" data-error="Preenchimento Obrigatório" for="senha-confirm">Senha</label>
                     </div>
                     <div class="input-field col s12 l6">
-                        <select name="tipo" id="tipo" class="validate" required>
-                            <option value="" disabled selected>Escolha uma opção</option>
-                            <option *ngFor="let t of tipos" [value]="t.tipo">{{ t.tipo }}</option>
+                        <i class="material-icons prefix">class</i>
+                        <select materialize="select" name="tipo" id="tipo" class="validate" required>
+                            <option value="0" disabled selected>Escolha uma opção</option>
+                            <option value="1">asdfsdafsdfsd</option>
+                            <option *ngFor="let t of tipos | async" [value]="t.tipo">{{ t.tipo }}</option>
                         </select>
                         <label>Tipo de Usuário</label>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <a class="modal-action modal-close waves-effect waves-red btn red darken-4 left" (click)="modalClose()">Cancelar</a>
+                <a class="modal-action modal-close waves-effect waves-red btn red darken-4 left" (click)="modalClose();f.reset()">Cancelar</a>
                 <button type="submit" [disabled]="f.invalid" class="modal-action modal-close waves-effect waves-green btn blue darken-1 right">{{ acao }}</button>
             </div>
         </form>

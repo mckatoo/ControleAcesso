@@ -11,6 +11,7 @@ import * as firebase from 'firebase';
 export class UsuariosComponent implements OnInit {
 
   users: FirebaseListObservable<any>;
+  tipos: FirebaseListObservable<any>;
   display = 'hidden';
   editUser: object;
   acao: string;
@@ -20,6 +21,7 @@ export class UsuariosComponent implements OnInit {
     private afAuth: AngularFireAuth
   ) {
     this.users = db.list('/users');
+    this.tipos = db.list('/tipos');
   }
 
   ngOnInit() {

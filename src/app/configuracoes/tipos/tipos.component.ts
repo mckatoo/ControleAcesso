@@ -37,7 +37,7 @@ export class TiposComponent implements OnInit {
   }
 
   save(json:string) {
-    this.tipos.push({tipo: 'Administrador', descricao: 'Administra todo o sistema.'});
+    this.tipos.push(json);
     this.display = 'hidden';
   }
   

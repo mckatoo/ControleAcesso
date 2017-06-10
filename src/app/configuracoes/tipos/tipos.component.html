@@ -33,23 +33,23 @@
         <div class="modal-title white-text orange darken-4">
             Novo Tipo de Usuário
         </div>
-        <form #f="ngForm" (ngSubmit)="save(f.form._value)">
+        <form #f="ngForm" (ngSubmit)="save(f.value);f.reset()">
             <div class="modal-body">
                 <div class="row">
                     <div class="input-field col s12 l6">
                         <i class="material-icons prefix">class</i>
-                        <input placeholder="Tipo de Usuário" type="text" name="tipo" id="tipo" class="validate" required>
+                        <input placeholder="Tipo de Usuário" type="text" name="tipo" id="tipo" class="validate" ngModel required>
                         <label class="active" data-error="Preenchimento Obrigatório" for="tipo">Tipo</label>
                     </div>
                     <div class="input-field col s12">
                         <i class="material-icons prefix">subject</i>
-                        <textarea placeholder="Uma breve descrição..." id="descricao" name="descricao" class="materialize-textarea validate" required></textarea>
+                        <textarea placeholder="Uma breve descrição..." id="descricao" name="descricao" class="materialize-textarea validate" ngModel required></textarea>
                         <label for="descricao" data-error="Preenchimento Obrigatório">Descrição</label>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <a class="modal-action modal-close waves-effect waves-red btn red darken-4 left" (click)="modalClose()">Cancelar</a>
+                <a class="modal-action modal-close waves-effect waves-red btn red darken-4 left" (click)="modalClose();f.reset()">Cancelar</a>
                 <button type="submit" [disabled]="f.invalid" class="modal-action modal-close waves-effect waves-green btn blue darken-1 right">{{ acao }}</button>
             </div>
         </form>
