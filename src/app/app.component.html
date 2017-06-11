@@ -4,8 +4,8 @@
         <ul id="dropdown1" class="dropdown-content">
             <li><a [routerLink]="'perfil'"><i class="fa fa-user" aria-hidden="true"></i>Perfil</a></li>
             <li class="divider"></li>
-            <li><a (click)="login()"><i class="fa fa-sign-in" aria-hidden="true"></i>Entrar</a></li>
-            <li><a (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Sair</a></li>
+            <li *ngIf="usuario.email"><a (click)="login()"><i class="fa fa-sign-in" aria-hidden="true"></i>Entrar</a></li>
+            <li *ngIf="!usuario.email"><a (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Sair</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper orange darken-4">

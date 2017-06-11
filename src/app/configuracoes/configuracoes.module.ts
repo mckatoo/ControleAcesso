@@ -7,12 +7,14 @@ import { ConfiguracoesComponent } from './configuracoes.component';
 import { ConfiguracoesRoutingModule } from './configuracoes-routing.module';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { TiposComponent } from './tipos/tipos.component';
+import { MaterializeModule } from "angular2-materialize";
 
 @NgModule({
   imports: [
     CommonModule,
     ConfiguracoesRoutingModule,
-    FormsModule
+    FormsModule,
+    MaterializeModule
   ],
   declarations: [
     ConfiguracoesComponent,

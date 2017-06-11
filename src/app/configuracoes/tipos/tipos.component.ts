@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
+import {MaterializeAction} from 'angular2-materialize';
 
 @Component({
   selector: 'tipos',
@@ -23,24 +24,22 @@ export class TiposComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
-  modalOpen(acao:string) {
-    this.acao = acao;
-    this.display = '';
+  modalActions = new EventEmitter<string|MaterializeAction>();
+  openModal() {
+    this.modalActions.emit({action:"modal",params:['open']});
   }
-
-  modalClose() {
-    this.editTipo = {};
-    this.display = 'hidden';
+  closeModal() {
+    this.modalActions.emit({action:"modal",params:['close']});
   }
 
   save(json:string) {
     this.tipos.push(json);
     this.display = 'hidden';
   }
-  
+
   editar(tipo){
     this.display = '';
     this.editTipo = tipo;
@@ -50,12 +49,12 @@ export class TiposComponent implements OnInit {
     this.tipos.update(tipo.$key,tipo);
     this.display = 'hidden';
   }
-  
+
   delete(key: string) {
     if (key == 'undefined') {
       this.tipos.remove();
     } else {
-      this.tipos.remove(key); 
+      this.tipos.remove(key);
     }
   }
 

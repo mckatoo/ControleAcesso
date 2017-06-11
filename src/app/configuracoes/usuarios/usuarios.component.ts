@@ -1,6 +1,8 @@
+import { Component, OnInit, EventEmitter } from '@angular/core';
+
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { Component, OnInit } from '@angular/core';
+import {MaterializeAction} from 'angular2-materialize';
 import * as firebase from 'firebase';
 
 @Component({
@@ -25,24 +27,27 @@ export class UsuariosComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
-  modalOpen(acao:string) {
-    this.acao = acao;
-    this.display = '';
+  modalActions = new EventEmitter<string|MaterializeAction>();
+  openModal() {
+    this.modalActions.emit({action:"modal",params:['open']});
+  }
+  closeModal() {
+    this.modalActions.emit({action:"modal",params:['close']});
   }
 
-  modalClose() {
-    this.editUser = {};
+  save(json) {
+    // console.log(json.tipo);
+    if (json.tipo == "Administrador") {
+      this.users.push(json);
+    } else {
+      this.users.push(json);
+    }
     this.display = 'hidden';
   }
 
-  save(json:string) {
-    this.users.push(json);
-    this.display = 'hidden';
-  }
-  
   editar(usuario){
     this.display = '';
     this.editUser = usuario;
@@ -52,12 +57,16 @@ export class UsuariosComponent implements OnInit {
     this.users.update(usuario.$key,usuario);
     this.display = 'hidden';
   }
-  
-  delete(key: string) {
-    if (key == 'undefined') {
-      this.users.remove();
+
+  delete(usuario) {
+    if (usuario.$key == 'undefined') {
+      if (confirm("Deseja excluir todos usuários?")) {
+        this.users.remove();
+      }
     } else {
-      this.users.remove(key); 
+      if (confirm("Deseja excluir o usuáio "+usuario.nome+"?")) {
+        this.users.remove(usuario.$key);
+      }
     }
   }
 
