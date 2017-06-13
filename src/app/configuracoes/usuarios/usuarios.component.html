@@ -1,6 +1,6 @@
 <div class="card-content white-text">
     <h4>Usuários
-      <!-- Modal Trigger -->
+        <!-- Modal Trigger -->
         <a class="waves-effect waves-light right btn-floating btn-small modal-trigger green" (click)="openModal();this.acao='Cadastrar'">
             <i class="small material-icons">add</i>
         </a>
@@ -30,48 +30,48 @@
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
-  <div class="modal-content">
-    <h5 class="white-text center orange darken-4 section">Novo Usuário</h5>
-    <form #f="ngForm" (ngSubmit)="save(f.value);f.reset()">
-      <div class="row">
-        <div class="input-field col s12 l6">
-            <i class="material-icons prefix">person</i>
-            <input placeholder="Nome Completo" type="text" name="nome" id="nome" class="validate" ngModel required>
-            <label class="active" data-error="Preenchimento Obrigatório" for="nome">Nome</label>
-        </div>
-        <div class="input-field col s12 l6">
-            <i class="fa fa-id-card-o prefix" aria-hidden="true"></i>
-            <input placeholder="Nome de Usuário" type="text" name="login" id="login" class="validate" ngModel required>
-            <label class="active" data-error="Preenchimento Obrigatório" for="login">Login</label>
-        </div>
-        <div class="input-field col s12 l6">
-            <i class="material-icons prefix">email</i>
-            <input placeholder="E-Mail" type="email" name="email" id="email" class="validate" ngModel required>
-            <label class="active" data-error="Preenchimento Obrigatório" for="email">E-Mail</label>
-        </div>
-        <div class="input-field col s12 l6">
-            <i class="material-icons prefix">vpn_key</i>
-            <input placeholder="Senha" type="password" name="senha" id="senha" class="validate" ngModel required>
-            <label class="active" data-error="Preenchimento Obrigatório" for="senha">Senha</label>
-        </div>
-        <div class="input-field col s12 l6">
-            <i class="material-icons prefix">vpn_key</i>
-            <input placeholder="Confirmação de senha" type="password" name="senha-confirm" id="senha-confirm" class="validate" ngModel required>
-            <label class="active" data-error="Preenchimento Obrigatório" for="senha-confirm">Senha</label>
-        </div>
-        <div class="input-field col s12 l6">
-            <i class="material-icons prefix">class</i>
-            <select materialize="material_select" [materializeSelectOptions]="f.tipo" name="tipo" ngModel required>
+    <div class="modal-content">
+        <h5 class="white-text center orange darken-4 section">Novo Usuário</h5>
+        <form #f="ngForm" (ngSubmit)="save(f.value);f.reset()">
+            <div class="row">
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">person</i>
+                    <input placeholder="Nome Completo" type="text" name="nome" id="nome" class="validate" ngModel required #nome onblur="onBlur(nome)">
+                    <label class="active" for="nome">Nome</label>
+                </div>
+                <div class="input-field col s12 l6">
+                    <i class="fa fa-id-card-o prefix" aria-hidden="true"></i>
+                    <input placeholder="Nome de Usuário" type="text" name="login" id="login" class="validate" ngModel required>
+                    <label class="active" for="login">Login</label>
+                </div>
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">email</i>
+                    <input placeholder="E-Mail" type="email" name="email" id="email" class="validate" ngModel required>
+                    <label class="active" for="email">E-Mail</label>
+                </div>
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">vpn_key</i>
+                    <input placeholder="Senha" type="password" name="senha" id="senha" class="validate" ngModel required>
+                    <label class="active" for="senha">Senha</label>
+                </div>
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">vpn_key</i>
+                    <input placeholder="Confirmação de senha" type="password" name="senha-confirm" id="senha-confirm" class="validate" ngModel required>
+                    <label class="active" for="senha-confirm">Senha</label>
+                </div>
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">class</i>
+                    <select materialize="material_select" [materializeSelectOptions]="f.tipo" name="tipo" ngModel required>
               <option value="0">Escolha uma opção</option>
               <option *ngFor="let t of tipos | async" (value)="t.tipo">{{t.tipo}}</option>
             </select>
-            <label>Tipo de Usuário</label>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <a class="modal-action modal-close waves-effect waves-red btn red darken-4 left" (click)="closeModal();f.reset()">Cancelar</a>
-    <button type="submit" [disabled]="f.invalid" class="modal-action modal-close waves-effect waves-green btn blue darken-1 right" (click)="save(f.value);closeModal();f.reset()">{{ acao }}</button>
-  </div>
+                    <label>Tipo de Usuário</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-red btn red darken-4 left" (click)="closeModal();f.reset()">Cancelar</a>
+        <button type="submit" [disabled]="f.invalid" class="modal-action modal-close waves-effect waves-green btn blue darken-1 right" (click)="f.submit;closeModal()">{{ acao }}</button>
+    </div>
 </div>
