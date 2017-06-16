@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="input-field col s12 l6">
                     <i class="material-icons prefix">person</i>
-                    <input placeholder="Nome Completo" type="text" name="nome" id="nome" class="validate" ngModel required #nome onblur="onBlur(nome)">
+                    <input placeholder="Nome Completo" type="text" name="nome" id="nome" class="validate" ngModel required>
                     <label class="active" for="nome">Nome</label>
                 </div>
                 <div class="input-field col s12 l6">
@@ -53,11 +53,13 @@
                     <i class="material-icons prefix">vpn_key</i>
                     <input placeholder="Senha" type="password" name="senha" id="senha" class="validate" ngModel required>
                     <label class="active" for="senha">Senha</label>
+                    <label class="red">{{ validaSenha(f.value.senha,f.value.senha2) }}</label>
                 </div>
                 <div class="input-field col s12 l6">
                     <i class="material-icons prefix">vpn_key</i>
-                    <input placeholder="Confirmação de senha" type="password" name="senha-confirm" id="senha-confirm" class="validate" ngModel required>
-                    <label class="active" for="senha-confirm">Senha</label>
+                    <input placeholder="Confirmação de senha" type="password" name="senha2" id="senha2" class="validate" ngModel required>
+                    <label class="active" for="senha-confirm">Confirmar Senha</label>
+                    <label class="red">{{ validaSenha(f.value.senha,f.value.senha2) }}</label>
                 </div>
                 <div class="input-field col s12 l6">
                     <i class="material-icons prefix">class</i>
@@ -72,6 +74,6 @@
     </div>
     <div class="modal-footer">
         <a class="modal-action modal-close waves-effect waves-red btn red darken-4 left" (click)="closeModal();f.reset()">Cancelar</a>
-        <button type="submit" [disabled]="f.invalid" class="modal-action modal-close waves-effect waves-green btn blue darken-1 right" (click)="f.submit;closeModal()">{{ acao }}</button>
+        <button type="submit" [disabled]="f.invalid || validaSenha(f.value.senha, f.value.senha2) == 'As senhas não conferem!'" class="modal-action modal-close waves-effect waves-green btn blue darken-1 right" (click)="save(f.value);f.reset();closeModal()">{{ acao }}</button>
     </div>
 </div>

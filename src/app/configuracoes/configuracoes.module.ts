@@ -8,6 +8,7 @@ import { ConfiguracoesRoutingModule } from './configuracoes-routing.module';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { TiposComponent } from './tipos/tipos.component';
 import { MaterializeModule } from "angular2-materialize";
+import { ValidacaoService } from './../shared/services/validacao/validacao.service';
 
 @NgModule({
   imports: [
@@ -20,6 +21,9 @@ import { MaterializeModule } from "angular2-materialize";
     ConfiguracoesComponent,
     UsuariosComponent,
     TiposComponent
+  ],
+  providers: [
+    ValidacaoService
   ]
 })
 export class ConfiguracoesModule { }

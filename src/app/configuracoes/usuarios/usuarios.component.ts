@@ -17,6 +17,7 @@ export class UsuariosComponent implements OnInit {
   display = 'hidden';
   editUser: object;
   acao: string;
+  valida: string;
 
   constructor(
     private db: AngularFireDatabase,
@@ -30,6 +31,12 @@ export class UsuariosComponent implements OnInit {
 
   }
 
+  validaSenha(senha1:string, senha2:string) {
+    if (senha1 != senha2) {
+      return "As senhas não conferem!";
+    }
+  }
+
   modalActions = new EventEmitter<string|MaterializeAction>();
   openModal() {
     this.modalActions.emit({action:"modal",params:['open']});
@@ -39,7 +46,6 @@ export class UsuariosComponent implements OnInit {
   }
 
   save(json) {
-    // console.log(json.tipo);
     if (json.tipo == "Administrador") {
       this.users.push(json);
     } else {
