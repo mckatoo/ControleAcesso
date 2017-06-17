@@ -18,6 +18,7 @@ import { HomeModule } from './home/home.module';
 import { PerfilModule } from './perfil/perfil.module';
 import { RelatoriosModule } from './relatorios/relatorios.module';
 import { SecretariaModule } from './secretaria/secretaria.module';
+import { ValidacaoService } from './shared/services/validacao/validacao.service';
 
 @NgModule({
   declarations: [

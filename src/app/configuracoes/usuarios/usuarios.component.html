@@ -48,18 +48,19 @@
                     <i class="material-icons prefix">email</i>
                     <input placeholder="E-Mail" type="email" name="email" id="email" class="validate" ngModel required>
                     <label class="active" for="email">E-Mail</label>
+                    <label class="white red-text darken-2 active">{{ validaEmail(f.value.email) }}</label>
                 </div>
                 <div class="input-field col s12 l6">
                     <i class="material-icons prefix">vpn_key</i>
                     <input placeholder="Senha" type="password" name="senha" id="senha" class="validate" ngModel required>
                     <label class="active" for="senha">Senha</label>
-                    <label class="red">{{ validaSenha(f.value.senha,f.value.senha2) }}</label>
+                    <label class="white red-text darken-2 active">{{ validaSenha(f.value.senha,f.value.senha2) }}</label>
                 </div>
                 <div class="input-field col s12 l6">
                     <i class="material-icons prefix">vpn_key</i>
                     <input placeholder="Confirmação de senha" type="password" name="senha2" id="senha2" class="validate" ngModel required>
                     <label class="active" for="senha-confirm">Confirmar Senha</label>
-                    <label class="red">{{ validaSenha(f.value.senha,f.value.senha2) }}</label>
+                    <label class="white red-text darken-2 active">{{ validaSenha(f.value.senha,f.value.senha2) }}</label>
                 </div>
                 <div class="input-field col s12 l6">
                     <i class="material-icons prefix">class</i>
@@ -74,6 +75,6 @@
     </div>
     <div class="modal-footer">
         <a class="modal-action modal-close waves-effect waves-red btn red darken-4 left" (click)="closeModal();f.reset()">Cancelar</a>
-        <button type="submit" [disabled]="f.invalid || validaSenha(f.value.senha, f.value.senha2) == 'As senhas não conferem!'" class="modal-action modal-close waves-effect waves-green btn blue darken-1 right" (click)="save(f.value);f.reset();closeModal()">{{ acao }}</button>
+        <button type="submit" [disabled]="f.invalid || validaSenha(f.value.senha, f.value.senha2) != null || validaEmail(f.value.email) != null" class="modal-action modal-close waves-effect waves-green btn blue darken-1 right" (click)="save(f.value);f.reset();closeModal()">{{ acao }}</button>
     </div>
 </div>

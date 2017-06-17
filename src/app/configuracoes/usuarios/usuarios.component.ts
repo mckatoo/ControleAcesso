@@ -32,8 +32,19 @@ export class UsuariosComponent implements OnInit {
   }
 
   validaSenha(senha1:string, senha2:string) {
+    // this.validacaoService.senha(senha1,senha2);
     if (senha1 != senha2) {
       return "As senhas não conferem!";
+    }
+  }
+
+  validaEmail(email:string) {
+    var EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
+    if (email == "") {
+      return null;
+    }
+    if (!EMAIL_REGEXP.test(email)) {
+        return "E-Mail inválido!";
     }
   }
 

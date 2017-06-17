@@ -21,9 +21,6 @@ import { ValidacaoService } from './../shared/services/validacao/validacao.servi
     ConfiguracoesComponent,
     UsuariosComponent,
     TiposComponent
-  ],
-  providers: [
-    ValidacaoService
   ]
 })
 export class ConfiguracoesModule { }
