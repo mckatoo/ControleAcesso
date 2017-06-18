@@ -32,7 +32,6 @@ export class UsuariosComponent implements OnInit {
   }
 
   validaSenha(senha1:string, senha2:string) {
-    // this.validacaoService.senha(senha1,senha2);
     if (senha1 != senha2) {
       return "As senhas não conferem!";
     }
@@ -57,11 +56,8 @@ export class UsuariosComponent implements OnInit {
   }
 
   save(json) {
-    if (json.tipo == "Administrador") {
-      this.users.push(json);
-    } else {
-      this.users.push(json);
-    }
+    this.users.push(json);
+    this.afAuth.auth.createUserWithEmailAndPassword(json.email,json.senha);
     this.display = 'hidden';
   }
 
