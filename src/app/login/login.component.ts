@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
 
   logout() {
     this.afAuth.auth.signOut();
+    this.tipo = null;
   }
 
   ngOnInit() {

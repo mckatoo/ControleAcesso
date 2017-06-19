@@ -32,16 +32,18 @@ export class AppComponent {
 
   constructor(private loginComponent: LoginComponent, private db: AngularFireDatabase) {
     this.usuario = loginComponent.usuario;
-    this.usuario.subscribe(data => {
-      db.list("users",{
-        query: {
-          orderByChild: 'email',
-          equalTo: data.email
-        }
-      }).subscribe(data => {
-        this.tipo = data[0]['tipo'];
-      });
-    });
+    this.tipo = loginComponent.tipo;
+    console.log(this.tipo);
+    // this.usuario.subscribe(data => {
+    //   db.list("users",{
+    //     query: {
+    //       orderByChild: 'email',
+    //       equalTo: data.email
+    //     }
+    //   }).subscribe(data => {
+    //     this.tipo = data[0]['tipo'];
+    //   });
+    // });
   }
 
   logout() {
