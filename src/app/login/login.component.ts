@@ -1,3 +1,4 @@
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Title } from '@angular/platform-browser';
@@ -13,11 +14,13 @@ export class LoginComponent implements OnInit {
 
   usuario: Observable<firebase.User>;
   msgErro: string;
+  tipo: string;
 
   constructor(
     private title: Title,
     private afAuth: AngularFireAuth,
     private router: Router,
+    private db: AngularFireDatabase
   ) {
     this.usuario = afAuth.authState;
     this.usuario.subscribe(usuario => {
@@ -32,6 +35,20 @@ export class LoginComponent implements OnInit {
     let password = usuario.password;
     this.afAuth.auth.signInWithEmailAndPassword(email,password)
       .catch(e => this.msgErro = e.message);
+    this.usuario.subscribe(data => {
+      this.db.list("users",{
+        query: {
+          orderByChild: 'email',
+          equalTo: data.email
+        }
+      }).subscribe(data => {
+        this.tipo = data[0]['tipo'];
+      });
+    });
+  }
+
+  logout() {
+    this.afAuth.auth.signOut();
   }
 
   ngOnInit() {

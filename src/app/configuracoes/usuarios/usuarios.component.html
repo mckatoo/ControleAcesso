@@ -52,13 +52,13 @@
                 </div>
                 <div class="input-field col s12 l6">
                     <i class="material-icons prefix">vpn_key</i>
-                    <input placeholder="Senha" type="password" name="senha" id="senha" class="validate" ngModel required>
+                    <input placeholder="Senha" minlength="6" type="password" name="senha" id="senha" class="validate" ngModel required>
                     <label class="active" for="senha">Senha</label>
                     <label class="white red-text darken-2 active">{{ validaSenha(f.value.senha,f.value.senha2) }}</label>
                 </div>
                 <div class="input-field col s12 l6">
                     <i class="material-icons prefix">vpn_key</i>
-                    <input placeholder="Confirmação de senha" type="password" name="senha2" id="senha2" class="validate" ngModel required>
+                    <input placeholder="Confirmação de senha" minlength="6" type="password" name="senha2" id="senha2" class="validate" ngModel required>
                     <label class="active" for="senha-confirm">Confirmar Senha</label>
                     <label class="white red-text darken-2 active">{{ validaSenha(f.value.senha,f.value.senha2) }}</label>
                 </div>
