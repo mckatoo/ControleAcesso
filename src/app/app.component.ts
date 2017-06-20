@@ -12,42 +12,34 @@ import { LoginComponent } from './login/login.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  tipo: string;
-  usuario: Observable<firebase.User>;
-  login;
+  tipo: Observable<string>;
+  nome: Observable<string>;
 
-  // constructor(private afAuth: AngularFireAuth, private db:AngularFireDatabase) {
-  //   this.usuario = afAuth.authState;
-  //   this.usuario.subscribe(data => {
-  //     db.list("users",{
-  //       query: {
-  //         orderByChild: 'email',
-  //         equalTo: data.email
-  //       }
-  //     }).subscribe(data => {
-  //       this.tipo = data[0]['tipo'];
-  //     });
-  //   });
-  // }
+  constructor(
+    private loginComponent: LoginComponent,
+    private db: AngularFireDatabase,
+    private afAuth: AngularFireAuth) {
+      if (afAuth.authState != null) {
+        afAuth.authState.subscribe(dados => {
+          if (dados != null) {
+            db.list('/users',{
+              query: {
+                orderByChild: 'email',
+                equalTo: dados.email
+              }
+            }).subscribe(usuario => {
+              this.nome = usuario[0]['nome'];
+              this.tipo = usuario[0]['tipo'];
+            });
+          }
+        });
+      }
+  }
 
-  constructor(private loginComponent: LoginComponent, private db: AngularFireDatabase) {
-    this.usuario = loginComponent.usuario;
-    this.tipo = loginComponent.tipo;
-    console.log(this.tipo);
-    // this.usuario.subscribe(data => {
-    //   db.list("users",{
-    //     query: {
-    //       orderByChild: 'email',
-    //       equalTo: data.email
-    //     }
-    //   }).subscribe(data => {
-    //     this.tipo = data[0]['tipo'];
-    //   });
-    // });
+  ngOnInit() {
   }
 
   logout() {
-    // this.afAuth.auth.signOut();
     this.loginComponent.logout();
   }
 }

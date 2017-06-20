@@ -4,8 +4,8 @@
         <ul id="dropdown1" class="dropdown-content">
             <li><a [routerLink]="'perfil'"><i class="fa fa-user" aria-hidden="true"></i>Perfil</a></li>
             <li class="divider"></li>
-            <li *ngIf="usuario.email"><a (click)="login()"><i class="fa fa-sign-in" aria-hidden="true"></i>Entrar</a></li>
-            <li *ngIf="!usuario.email"><a (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Sair</a></li>
+            <li *ngIf="!nome"><a (click)="login()"><i class="fa fa-sign-in" aria-hidden="true"></i>Entrar</a></li>
+            <li *ngIf="nome"><a (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>Sair</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper orange darken-4">
@@ -13,7 +13,7 @@
                     <li routerLinkActive="active"><a class="waves-effect" [routerLink]="'home'"><i class="material-icons left">home</i>Principal</a></li>
                     <li routerLinkActive="active" *ngIf="tipo != 'Controlador de Acesso'"><a class="waves-effect" [routerLink]="'configuracoes'"><i class="material-icons left">settings</i>Configurações</a></li>
                     <!-- Dropdown -->
-                    <li><a class="waves-effect" class="dropdown-button" href="#" data-activates="dropdown1"><i class="material-icons left">person</i>{{ (usuario | async)?.email }}<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="waves-effect" class="dropdown-button" href="#" data-activates="dropdown1"><i class="material-icons left">person</i><i class="material-icons right">arrow_drop_down</i>{{ nome }}</a></li>
                 </ul>
             </div>
         </nav>
@@ -23,16 +23,15 @@
             <a id="logo-container" href="/" class="brand-logo"></a>
         </li>
         <li routerLinkActive="active"><a class="waves-effect" [routerLink]="'home'"><i class="material-icons">home</i>Principal</a></li>
-        <li routerLinkActive="active"><a class="waves-effect" [routerLink]="'secretaria'"><i class="fa fa-archive fa-fw"></i>Secretaria</a></li>
+        <li routerLinkActive="active" *ngIf="tipo != 'Controlador de Acesso'"><a class="waves-effect" [routerLink]="'secretaria'"><i class="fa fa-archive fa-fw"></i>Secretaria</a></li>
         <li routerLinkActive="active"><a class="waves-effect" [routerLink]="'controle'"><i class="fa fa-users fa-fw"></i>Controle de Acesso</a></li>
-        <li routerLinkActive="active"><a class="waves-effect" [routerLink]="'relatorios'"><i class="fa fa-file fa-fw"></i>Relatórios</a></li>
+        <li routerLinkActive="active" *ngIf="tipo != 'Controlador de Acesso'"><a class="waves-effect" [routerLink]="'relatorios'"><i class="fa fa-file fa-fw"></i>Relatórios</a></li>
     </ul>
 </header>
 
 <main>
     <div class="row first-row">
         <div class="col s12 m9 l12">
-            O tipo de usuarios é: {{ tipo }}
             <router-outlet></router-outlet>
         </div>
     </div>

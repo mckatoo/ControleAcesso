@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/Observable';
+import { AppComponent } from './../../app.component';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -18,17 +20,20 @@ export class UsuariosComponent implements OnInit {
   editUser: object;
   acao: string;
   valida: string;
+  tipo;
 
   constructor(
     private db: AngularFireDatabase,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private appComponent: AppComponent,
   ) {
     this.users = db.list('/users');
     this.tipos = db.list('/tipos');
+    this.tipo = appComponent.tipo;
+    console.log(this.tipo);
   }
 
   ngOnInit() {
-
   }
 
   validaSenha(senha1:string, senha2:string) {

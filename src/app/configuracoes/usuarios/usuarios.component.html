@@ -5,21 +5,25 @@
             <i class="small material-icons">add</i>
         </a>
     </h4>
+
     <table class="striped">
         <thead>
             <tr>
                 <th>Nome</th>
                 <th>E-Mail</th>
-                <th colspan="2"></th>
+                <th colspan="2">{{ tipo }}</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let u of users | async">
                 <td>{{ u.nome }}</td>
                 <td>{{ u.email }}</td>
-                <td class="center">
+                <td class="center" *ngIf="tipo == Administrador">
                     <a class="btn-floating btn waves-effect waves-light red" (click)="delete(u)"><i class="material-icons">remove</i></a>
                 </td>
+                <!--<td class="center" *ngIf="tipo == Secretaria && u.tipo == Secretaria">
+                    <a class="btn-floating btn waves-effect waves-light red" (click)="delete(u)"><i class="material-icons">remove</i></a>
+                </td>-->
                 <td class="center">
                     <a class="btn-floating btn waves-effect waves-light blue"><i class="material-icons">mode_edit</i></a>
                 </td>
