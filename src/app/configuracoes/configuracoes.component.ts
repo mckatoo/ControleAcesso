@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/Observable';
+import { AppComponent } from './../app.component';
 import { firebaseAdminConfig } from './../../environments/firebase-admin.config';
 import { Component, OnInit } from '@angular/core';
 
@@ -14,12 +16,16 @@ import * as fbAdmin from 'firebase-admin';
 })
 export class ConfiguracoesComponent implements OnInit {
 
+  tipo: Observable<string>;
+
   constructor(
     private db: AngularFireDatabase,
     private afAuth: AngularFireAuth,
     private title: Title,
     private router: Router,
+    private appComponent: AppComponent
   ) {
+    this.tipo = appComponent.tipo;
     let usuario = afAuth.authState;
     usuario.subscribe(usuario => {
       if (usuario == null) {
