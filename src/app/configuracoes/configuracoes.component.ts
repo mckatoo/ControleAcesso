@@ -25,15 +25,14 @@ export class ConfiguracoesComponent implements OnInit {
     private router: Router,
     private appComponent: AppComponent
   ) {
-    this.tipo = appComponent.tipo;
-    let usuario = afAuth.authState;
-    usuario.subscribe(usuario => {
-      if (usuario == null) {
-        router.navigate(['login']);
-      } else {
-        router.navigate(['configuracoes']);
-      }
-    });
+    // let usuario = afAuth.authState;
+    // usuario.subscribe(usuario => {
+    //   if (usuario == null) {
+    //     router.navigate(['login']);
+    //   } else {
+    //     router.navigate(['configuracoes']);
+    //   }
+    // });
   }
 
   ngOnInit() {
